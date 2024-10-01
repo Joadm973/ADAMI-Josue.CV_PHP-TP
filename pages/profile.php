@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])) {
     <p>Bonjour, <?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name']; ?> !</p>
     <p>Rôle: <?php echo $_SESSION['role']; ?></p>
 
-    <a href="logout.php">Se déconnecter</a>
+    <a href="../php/logout.php">Se déconnecter</a>
 </main>
 
 <?php include '../includes/footer.php'; ?>
