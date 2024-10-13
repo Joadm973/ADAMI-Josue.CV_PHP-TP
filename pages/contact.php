@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php include '../includes/header.php'; ?>
 
 <div class="container">
-    <h1>Contactez-nous</h1>
+    <h1>Contactez moi</h1>
     <form action="contact.php" method="post">
         <div>
             <label for="name">Nom :</label>

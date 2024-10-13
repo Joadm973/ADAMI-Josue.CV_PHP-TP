@@ -10,9 +10,25 @@
 <?php include '../includes/header.php'; ?> <!-- Inclusion du header -->
 
 <main>
-    <h1>Bienvenue sur mon CV/Portfolio</h1>
-    <p>Ce site vous permettra de découvrir mes compétences, mon parcours, ainsi que mes projets.</p>
-    <a href="../pages/contact.php">Contactez-moi</a> <!-- Lien vers la page de contact -->
+    <section class="hero">
+        <h1>Bienvenue sur mon CV/Portfolio</h1>
+        <p>
+            Bonjour, je suis ADAMI Josué, un jeune étudiant passionné par l'informatique. Actuellement en 2e année d'informatique chez YNOV,
+        </p>
+        <p>
+            Découvrez mon parcours, mes compétences, et mes projets professionnels à travers ce site.
+        </p>
+        <a href="../pages/cv.php" class="btn">Voici mon CV</a>
+    </section>
+
+    <section class="about">
+        <h2>À propos de ce site</h2>
+        <p>
+            Ce portfolio vous permet de naviguer entre mes différents projets, de consulter mon CV
+            et d'en télécharger une version PDF. Vous pourrez voir mes competénces à travers mes projets
+            et mon engagement à l'amélioration continue.
+        </p>
+    </section>
 </main>
 
 <?php include '../includes/footer.php'; ?> <!-- Inclusion du footer -->
