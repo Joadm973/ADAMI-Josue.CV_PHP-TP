@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php include '../includes/header.php'; ?>
 
 <div class="container">
-    <h1>Connexion</h1>
+    <h1>Connectez-vous afin d'accéder à cette fonctionnalité 😉</h1>
     <form action="login.php" method="post">
         <div>
             <label for="email">Email :</label>

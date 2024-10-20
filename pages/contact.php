@@ -39,18 +39,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
+<link rel="stylesheet" href="../css/contact.css">
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css"> <!-- Inclure le CSS -->
+    <link rel="stylesheet" href="../css/style.css"> <!-- Inclure le CSS via un fichier externe -->
     <title>Contact</title>
 </head>
 <body>
+
 <?php include '../includes/header.php'; ?>
 
-<div class="container">
-    <h1>Contactez moi</h1>
+<div class="container" style="margin-top: 80px;">
+    <h1>Contactez-moi</h1>
     <form action="contact.php" method="post">
         <div>
             <label for="name">Nom :</label>
@@ -74,5 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 <?php include '../includes/footer.php'; ?>
+
 </body>
 </html>
