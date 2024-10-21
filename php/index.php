@@ -1,4 +1,5 @@
 <?php
+global $pdo;
 session_start();
 require_once '../php/config.php';
 
@@ -70,36 +71,6 @@ if ($isLoggedIn) {
             <div class="profile-details">
                 <h2 class="profile-title">Profil</h2>
                 <p class="profile-description"><?php echo htmlspecialchars($user['profile_description']); ?></p>
-            </div>
-
-            <!-- Expériences professionnelles -->
-            <div class="profile-section work-experience">
-                <h2 class="profile-title">Work Experience</h2>
-                <?php if ($workExperience): ?>
-                    <ul class="experience-list">
-                        <?php foreach ($workExperience as $experience): ?>
-                            <li class="experience-item">
-                                <strong><?php echo htmlspecialchars($experience['position']); ?>, <?php echo htmlspecialchars($experience['company']); ?></strong><br>
-                                <span class="experience-duration"><?php echo htmlspecialchars($experience['duration']); ?></span>
-                                <ul class="experience-description">
-                                    <li><?php echo htmlspecialchars($experience['description']); ?></li>
-                                </ul>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php else: ?>
-                    <p class="no-data">Aucune expérience professionnelle enregistrée.</p>
-                <?php endif; ?>
-            </div>
-
-            <!-- Éducation -->
-            <div class="profile-section education">
-                <h2 class="profile-title">Education</h2>
-                <?php if ($education): ?>
-                    <p><?php echo htmlspecialchars($education['degree']); ?>, <?php echo htmlspecialchars($education['institution']); ?> (<?php echo htmlspecialchars($education['years']); ?>)</p>
-                <?php else: ?>
-                    <p class="no-data">Aucune information d'éducation enregistrée.</p>
-                <?php endif; ?>
             </div>
 
             <!-- Compétences -->

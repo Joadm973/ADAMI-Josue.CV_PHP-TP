@@ -147,6 +147,53 @@ if ($isLoggedIn) {
         header("Location: profile.php");
         exit;
     }
+
+$userId = $_SESSION['user_id'];
+
+// Récupérer les compétences de l'utilisateur
+$stmt = $pdo->prepare("SELECT * FROM skills WHERE user_id = :user_id");
+$stmt->execute(['user_id' => $userId]);
+$skills = $stmt->fetchAll();
+
+// Si aucune compétence n'est enregistrée, insérer une compétence par défaut
+if (empty($skills)) {
+    $stmt = $pdo->prepare("INSERT INTO skills (user_id, skill_name) VALUES (:user_id, 'Compétence à définir')");
+    $stmt->execute(['user_id' => $userId]);
+
+    // Récupérer à nouveau les compétences après l'insertion
+    $stmt = $pdo->prepare("SELECT * FROM skills WHERE user_id = :user_id");
+    $stmt->execute(['user_id' => $userId]);
+    $skills = $stmt->fetchAll();
+}
+
+// Si le formulaire est soumis
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Mise à jour ou ajout des compétences
+    if (isset($_POST['skills'])) {
+        foreach ($_POST['skills'] as $index => $skill) {
+            if (isset($skills[$index])) {
+                // Mettre à jour la compétence existante
+                $stmt = $pdo->prepare("UPDATE skills SET skill_name = :skill_name WHERE id = :id AND user_id = :user_id");
+                $stmt->execute([
+                    'skill_name' => $skill,
+                    'id' => $skills[$index]['id'],
+                    'user_id' => $userId
+                ]);
+            } else {
+                // Ajouter une nouvelle compétence
+                $stmt = $pdo->prepare("INSERT INTO skills (user_id, skill_name) VALUES (:user_id, :skill_name)");
+                $stmt->execute([
+                    'user_id' => $userId,
+                    'skill_name' => $skill
+                ]);
+            }
+        }
+        // Redirection après la mise à jour
+        header("Location: profile.php");
+        exit;
+    }
+}
+
 } else {
     header("Location: login.php");
     exit;
@@ -266,8 +313,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_defaults'])) {
                     <input type="text" name="skills[]" value="<?php echo htmlspecialchars($skill['skill_name']); ?>" required>
                 <?php endforeach; ?>
             <?php else: ?>
-                <p>Aucune compétence enregistrée.</p>
+                <!-- Si aucune compétence n'est enregistrée, afficher "Compétence à définir" -->
+                <input type="text" name="skills[]" value="Compétence à définir" required>
             <?php endif; ?>
+
+
 
             <!-- Projets -->
             <h2>Projets</h2>
@@ -293,6 +343,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_defaults'])) {
         </form>
     </section>
 </main>
-
 </body>
 </html>

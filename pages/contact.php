@@ -1,81 +1,72 @@
 <?php
-// Inclure le fichier de configuration pour la connexion à la base de données
-include '../php/config.php';
+// Inclure les fichiers nécessaires pour PHPMailer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-// Initialiser les variables pour le traitement du formulaire
-$name = $email = $message = '';
-$errors = [];
+require '../PHPMailer-master/src/Exception.php';
+require '../PHPMailer-master/src/PHPMailer.php';
+require '../PHPMailer-master/src/SMTP.php';
 
-// Vérifier si le formulaire a été soumis
+// Vérifier si le formulaire est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validation des données du formulaire
-    if (empty($_POST["name"])) {
-        $errors['name'] = "Le nom est requis.";
-    } else {
-        $name = htmlspecialchars(trim($_POST["name"]));
-    }
+    // Récupérer les informations du formulaire
+    $name = htmlspecialchars(trim($_POST['name']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $message = htmlspecialchars(trim($_POST['message']));
 
-    if (empty($_POST["email"])) {
-        $errors['email'] = "L'email est requis.";
-    } elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = "L'email n'est pas valide.";
-    } else {
-        $email = htmlspecialchars(trim($_POST["email"]));
-    }
+    // Créer une instance de PHPMailer
+    $mail = new PHPMailer(true);
 
-    if (empty($_POST["message"])) {
-        $errors['message'] = "Le message est requis.";
-    } else {
-        $message = htmlspecialchars(trim($_POST["message"]));
-    }
+    try {
+        // Paramètres du serveur
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Utilisez le serveur SMTP de votre choix
+        $mail->SMTPAuth = true;
+        $mail->Username = 'test319731@gmail.com'; // Votre adresse email
+        $mail->Password = 'test.1234'; // Votre mot de passe email ou mot de passe d'application si 2FA activé
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
 
-    // Si aucune erreur, traiter l'envoi (ex. : envoyer un email, sauvegarder dans la base de données, etc.)
-    if (empty($errors)) {
-        // Ici, tu pourrais envoyer un email ou stocker le message dans une base de données
-        // Pour l'exemple, nous allons juste afficher un message de succès
-        echo "<div class='success'>Merci $name, votre message a été envoyé !</div>";
+        // Destinataire
+        $mail->setFrom('votreemail@gmail.com', $name);
+        $mail->addAddress('destinataire@example.com'); // Adresse de destination
+
+        // Contenu de l'email
+        $mail->isHTML(true);
+        $mail->Subject = 'Nouveau message de contact';
+        $mail->Body    = "Nom: $name <br>Email: $email <br>Message: $message";
+        $mail->AltBody = "Nom: $name \nEmail: $email \nMessage: $message";
+
+        // Envoyer l'email
+        $mail->send();
+        echo 'Le message a été envoyé avec succès.';
+    } catch (Exception $e) {
+        echo "Erreur lors de l'envoi du message : {$mail->ErrorInfo}";
     }
 }
 ?>
 
+<!-- HTML du formulaire de contact -->
 <!DOCTYPE html>
-<link rel="stylesheet" href="../css/contact.css">
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css"> <!-- Inclure le CSS via un fichier externe -->
     <title>Contact</title>
 </head>
 <body>
+<h1>Formulaire de Contact</h1>
+<form action="contact.php" method="post">
+    <label for="name">Nom :</label>
+    <input type="text" name="name" required><br>
 
-<?php include '../includes/header.php'; ?>
+    <label for="email">Email :</label>
+    <input type="email" name="email" required><br>
 
-<div class="container" style="margin-top: 80px;">
-    <h1>Contactez-moi</h1>
-    <form action="contact.php" method="post">
-        <div>
-            <label for="name">Nom :</label>
-            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>">
-            <span class="error"><?php echo isset($errors['name']) ? $errors['name'] : ''; ?></span>
-        </div>
-        <div>
-            <label for="email">Email :</label>
-            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
-            <span class="error"><?php echo isset($errors['email']) ? $errors['email'] : ''; ?></span>
-        </div>
-        <div>
-            <label for="message">Message :</label>
-            <textarea id="message" name="message"><?php echo htmlspecialchars($message); ?></textarea>
-            <span class="error"><?php echo isset($errors['message']) ? $errors['message'] : ''; ?></span>
-        </div>
-        <div>
-            <button type="submit">Envoyer</button>
-        </div>
-    </form>
-</div>
+    <label for="message">Message :</label>
+    <textarea name="message" required></textarea><br>
 
-<?php include '../includes/footer.php'; ?>
-
+    <button type="submit">Envoyer</button>
+</form>
 </body>
 </html>
