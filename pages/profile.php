@@ -151,6 +151,52 @@ if ($isLoggedIn) {
     header("Location: login.php");
     exit;
 }
+if ($isLoggedIn) {
+    $userId = $_SESSION['user_id'];
+
+    // Récupérer les informations de base de l'utilisateur
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :user_id");
+    $stmt->execute(['user_id' => $userId]);
+    $user = $stmt->fetch();
+
+    // Vérifier si l'utilisateur a déjà des expériences professionnelles
+    $stmt = $pdo->prepare("SELECT * FROM work_experience WHERE user_id = :user_id");
+    $stmt->execute(['user_id' => $userId]);
+    $workExperience = $stmt->fetchAll();
+
+    // Si l'utilisateur n'a pas encore d'expériences professionnelles, on en insère avec des valeurs par défaut
+    if (count($workExperience) == 0) {
+        $stmt = $pdo->prepare("INSERT INTO work_experience (user_id, position, company, duration, description) 
+                               VALUES (:user_id, :position, :company, :duration, :description)");
+        $stmt->execute([
+            'user_id' => $userId,
+            'position' => 'Poste à définir',
+            'company' => 'Entreprise à définir',
+            'duration' => 'Durée à définir',
+            'description' => 'Description à définir'
+        ]);
+
+        // Récupérer de nouveau les expériences professionnelles après insertion
+        $stmt = $pdo->prepare("SELECT * FROM work_experience WHERE user_id = :user_id");
+        $stmt->execute(['user_id' => $userId]);
+        $workExperience = $stmt->fetchAll();
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_defaults'])) {
+    $stmt = $pdo->prepare("UPDATE work_experience 
+                           SET position = 'Poste à définir', 
+                               company = 'Entreprise à définir', 
+                               duration = 'Durée à définir', 
+                               description = 'Description à définir' 
+                           WHERE user_id = :user_id");
+    $stmt->execute(['user_id' => $userId]);
+
+    // Redirection après la mise à jour
+    header("Location: profile.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
