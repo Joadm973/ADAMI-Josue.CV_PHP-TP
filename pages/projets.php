@@ -29,6 +29,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_project'])) {
     exit;
 }
 
+// Supprimer un projet
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_project'])) {
+    $projectId = $_POST['project_id'];
+
+    // Suppression du projet dans la base de données
+    $stmt = $pdo->prepare("DELETE FROM projects WHERE id = :id AND user_id = :user_id");
+    $stmt->execute(['id' => $projectId, 'user_id' => $userId]);
+
+    header("Location: projets.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -38,12 +50,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_project'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes Projets</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/projets.css">
 </head>
 <body>
 
 <?php include '../includes/header.php'; ?>
 
-<main class="container">
+<!-- Add margin-top to create space between header and content -->
+<main class="container" style="margin-top: 100px;">
     <h1>Mes Projets</h1>
 
     <!-- Liste des projets de l'utilisateur -->
@@ -54,6 +68,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_project'])) {
                     <li>
                         <h3><?php echo htmlspecialchars($project['title']); ?></h3>
                         <p><?php echo htmlspecialchars($project['description']); ?></p>
+                        <!-- Formulaire de suppression -->
+                        <form action="projets.php" method="post" style="display:inline;">
+                            <input type="hidden" name="project_id" value="<?php echo $project['id']; ?>">
+                            <button type="submit" name="delete_project" class="delete-button" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');">Supprimer</button>
+                        </form>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -66,22 +85,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_project'])) {
     <section class="add-project">
         <h2>Ajouter un nouveau projet</h2>
         <form action="projets.php" method="post">
-            <div>
+            <div class="form-group">
                 <label for="title">Titre :</label>
                 <input type="text" name="title" id="title" required>
             </div>
-            <div>
+            <div class="form-group">
                 <label for="description">Description :</label>
                 <textarea name="description" id="description" rows="5" required></textarea>
             </div>
-            <div>
+            <div class="form-group">
                 <button type="submit" name="add_project">Ajouter le projet</button>
             </div>
         </form>
     </section>
 </main>
-
-<?php include '../includes/footer.php'; ?>
 
 </body>
 </html>

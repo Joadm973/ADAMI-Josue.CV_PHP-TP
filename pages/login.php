@@ -1,7 +1,13 @@
 <?php
-global $pdo;
 session_start();
 require '../php/config.php';
+
+if (isset($_SESSION['user_id'])) {
+    // Redirect the user if already logged in
+    $_SESSION['message'] = "Vous êtes déjà connecté.";
+    header("Location: profile.php");
+    exit;
+}
 
 $errors = [];
 
@@ -17,15 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user && password_verify($password, $user['password'])) {
         // Authentification réussie, démarrer la session
         $_SESSION['user_id'] = $user['id'];
-        header("Location: profile.php");
+        header("Location: ../php/index.php");
         exit;
     } else {
         // Afficher un message d'erreur si l'utilisateur n'existe pas ou si le mot de passe est incorrect
         $errors['password'] = "Email ou mot de passe incorrect.";
     }
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -58,6 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
     <p>Pas encore inscrit ? <a href="register.php">Créez un compte</a></p>
 </div>
+
 <?php include '../includes/footer.php'; ?>
 </body>
 </html>

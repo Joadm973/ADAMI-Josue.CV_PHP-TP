@@ -21,12 +21,6 @@ session_start();
                     <li><a href="../pages/login.php">Se connecter</a></li>
                 <?php else: ?>
                     <li><a href="../pages/profile.php">Mon Profil</a></li>
-                    <li><form method="POST" action="../php/logout.php" style="display:inline;">
-                            <button type="submit" name="logout" style="background: none; border: none; cursor: pointer;">
-                                <i class="fas fa-sign-out-alt"></i>
-                            </button>
-                        </form>
-                    </li>
                 <?php endif; ?>
             </div>
         </ul>

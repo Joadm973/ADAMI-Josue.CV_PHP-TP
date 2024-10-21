@@ -106,3 +106,11 @@ footer {
     height: 50px;
     line-height: 50px;
 }
+.logout-icon {
+    background-color: transparent;
+    border: none;
+}
+.logout-icon {
+    width: auto;
+    height: auto;
+}
