@@ -8,10 +8,6 @@ XAMPP a été choisi au lieu de Docker.
 - Il s'agit d'un site web CV/Portfolio permettant aux utilisateurs de créer, modifier et personnaliser leurs CV ainsi que de gérer leurs projets.
 
 ## Fonctionnalités principales
-### Général
-- Le site possède une en-tête et un pied de page communs à toutes les pages.
-- Navigation via un menu.
-- Une fois connecté, l'utilisateur voit son nom et prénom sur l'interface.
 
 ### CV
 - Un utilisateur connecté peut consulter et modifier ses informations de CV.
