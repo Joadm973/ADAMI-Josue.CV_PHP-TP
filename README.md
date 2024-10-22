@@ -30,11 +30,10 @@ XAMPP a été choisi au lieu de Docker.
 
 
 ## Structure du projet
-- **/css** : Contient les fichiers de style CSS utilisés pour la mise en page.
 - **/php** : Regroupe les fichiers PHP principaux pour l'authentification, la gestion des utilisateurs, l'envoi de formulaires, etc.
 - **/includes** : Contient les composants communs tels que l'en-tête, le pied de page, et les éléments du menu de navigation.
 - **/pages** : Regroupe les différentes pages du site (contact, profil, projets, etc.).
-- **/uploads/cv** : Dossier où les fichiers CV des utilisateurs sont stockés.
+- **/css** : Contient les fichiers de style CSS utilisés pour la mise en page.
 
 ## Technologies utilisées
 - **PHP** : Côté serveur pour la gestion des formulaires, l'authentification et la gestion des utilisateurs.
