@@ -1,6 +1,6 @@
 # CV_PHP-TP
 
-XAMPP a été choisi au lieu de Docker.
+XAMPP a été choisi au dépends de Docker.
 # Projet Web CV/Portfolio
 
 ## Contexte
@@ -16,9 +16,8 @@ XAMPP a été choisi au lieu de Docker.
 
 ### Projets
 - Un utilisateur connecté peut ajouter des projets à son portfolio.
-- Un administrateur peut valider les projets avant leur publication.
+- Un utilisateur peut également modifier et supprimer ses projets.
 - Les projets peuvent être marqués comme favoris et sont recherchables.
-- Les projets peuvent recevoir des commentaires soumis à validation.
 
 ### Pages du site
 - **Page d'accueil** : Une landing page statique qui présente le projet.
@@ -30,9 +29,9 @@ XAMPP a été choisi au lieu de Docker.
 
 
 ## Structure du projet
+- **/pages** : Regroupe les différentes pages du site (contact, profil, projets, etc.).
 - **/php** : Regroupe les fichiers PHP principaux pour l'authentification, la gestion des utilisateurs, l'envoi de formulaires, etc.
 - **/includes** : Contient les composants communs tels que l'en-tête, le pied de page, et les éléments du menu de navigation.
-- **/pages** : Regroupe les différentes pages du site (contact, profil, projets, etc.).
 - **/css** : Contient les fichiers de style CSS utilisés pour la mise en page.
 
 ## Technologies utilisées
