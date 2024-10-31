@@ -56,6 +56,7 @@ if ($isLoggedIn) {
             Ce site web a été conçu pour permettre la gestion de CV/Portfolio à travers plusieurs pages interactives.
             Vous pouvez y créer, modifier et personnaliser votre propre CV, ainsi que visualiser et gérer différents portfolios.
             Ce projet inclut diverses fonctionnalités pour simplifier l'édition et l'organisation des informations professionnelles.
+            <br><em>Pour voir toutes vos compétences sur le CV veuillez accéder à la rubrique "Mon CV".</em>
         </p>
     </section>
 
