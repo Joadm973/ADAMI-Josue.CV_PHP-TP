@@ -6,6 +6,21 @@ use PHPMailer\PHPMailer\Exception;
 require '../vendor/autoload.php'; // Inclusion automatique avec Composer
 include '../includes/ProfileHeader.php'; // Inclusion du header
 
+// Démarrer la session uniquement si elle n'est pas déjà active
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Vérifiez si l'utilisateur est connecté
+if (!isset($_SESSION['user_id'])) {
+    // Redirigez l'utilisateur vers la page de connexion s'il n'est pas connecté
+    header("Location: login.php");
+    exit();
+}
+
+// Initialiser la variable de message de succès
+$successMessage = "";
+
 // Vérifier si le formulaire est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer les informations du formulaire
@@ -38,9 +53,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Envoyer l'email
         $mail->send();
-        echo 'Le message a été envoyé avec succès.';
+        $successMessage = 'Votre message a été envoyé avec succès.'; // Définir le message de succès
     } catch (Exception $e) {
-        echo "Erreur lors de l'envoi du message : {$mail->ErrorInfo}";
+        $successMessage = "Erreur lors de l'envoi du message : {$mail->ErrorInfo}";
     }
 }
 ?>
@@ -56,9 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-
 <h1 style="margin-top: 50px;">Formulaire de Contact</h1>
-
 
 <form action="contact.php" method="post">
     <label for="name">Nom :</label>
@@ -72,6 +85,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <button type="submit">Envoyer</button>
 </form>
+
+<!-- Afficher le message de succès en bas de la page -->
+<?php if ($successMessage): ?>
+    <p style="text-align: center; margin-top: 50px; color: green;"><?= $successMessage ?></p>
+<?php endif; ?>
 
 </body>
 </html>
