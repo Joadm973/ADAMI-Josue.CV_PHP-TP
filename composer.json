@@ -1,0 +1,20 @@
+{
+    "name": "ga503/cv_php-tp",
+    "description": "cvv website",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ga503\\CvPhpTp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ajosue",
+            "email": "josue.adami@ynov.com"
+        }
+    ]
+}
