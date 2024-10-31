@@ -1,10 +1,10 @@
 # CV_PHP-TP
 
-XAMPP a été choisi au dépends de Docker.
+XAMPP a été choisi au dépens de Docker.
 # Projet Web CV/Portfolio
 
 ## Contexte
-- Ce projet a été réalisé dans le cadre du cours de PHP. 
+- Ce projet a été réalisé dans le cadre du cours de PHP.
 - Il s'agit d'un site web CV/Portfolio permettant aux utilisateurs de créer, modifier et personnaliser leurs CV ainsi que de gérer leurs projets.
 
 ## Fonctionnalités principales
@@ -27,7 +27,6 @@ XAMPP a été choisi au dépends de Docker.
 - **Page login/logout** : Authentification des utilisateurs.
 - **Page profil** : Un espace pour modifier ses informations personnelles.
 
-
 ## Structure du projet
 - **/pages** : Regroupe les différentes pages du site (contact, profil, projets, etc.).
 - **/php** : Regroupe les fichiers PHP principaux pour l'authentification, la gestion des utilisateurs, l'envoi de formulaires, etc.
@@ -41,6 +40,16 @@ XAMPP a été choisi au dépends de Docker.
 - **PHPMailer** : Librairie utilisée pour envoyer des emails depuis la page de contact.
 - **JavaScript/jQuery** : Pour ajouter de l'interactivité aux pages.
 - **Bootstrap** : Framework CSS pour un design réactif.
+
+## Axes d'améliorations
+Certaines fonctionnalités n'ont pas pu être implémentées par manque de temps ou en raison de difficultés techniques. Voici les axes d'amélioration possibles :
+
+- **Panneau d’administration** : Une page dédiée pour gérer les utilisateurs, leurs projets et leurs CV.
+- **Connexion via Google (SSO - OAuth2)** : Permettre aux utilisateurs de se connecter en utilisant leur compte Google pour une expérience utilisateur simplifiée.
+- **Téléchargement public des CV** : Permettre à n'importe quel utilisateur de télécharger le CV en tant que fichier PDF.
+
+Ces fonctionnalités pourraient être ajoutées dans une version future pour améliorer l'expérience utilisateur et offrir davantage de possibilités de personnalisation et de gestion.
+
 
 ## Installation
 1. Cloner le projet depuis GitHub :
